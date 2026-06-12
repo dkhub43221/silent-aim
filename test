@@ -43,20 +43,7 @@ local customTheme = {
 }
 
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
-local CoreGui = game:GetService("CoreGui")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Workspace = game:GetService("Workspace")
-local ProximityPromptService = game:GetService("ProximityPromptService")
-local LocalPlayer = Players.LocalPlayer
-local Camera = Workspace.CurrentCamera
-local Mouse = LocalPlayer:GetMouse()
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local Backpack = LocalPlayer:WaitForChild("Backpack")
-local Leaderstats = LocalPlayer:WaitForChild("leaderstats")
-local Wallet = Leaderstats:WaitForChild("Wallet")
+
 
 local Window = Rayfield:CreateWindow({
     Name = "Tester UWU | " .. executor,
