@@ -1,4 +1,4 @@
-local rayfield =  loadstring(game:HttpGet("https://raw.githubusercontent.com/dkhub43221/clone/refs/heads/main/sirus"))()
+local Rayfield =  loadstring(game:HttpGet("https://raw.githubusercontent.com/dkhub43221/clone/refs/heads/main/sirus"))()
 
 local customTheme = {
     TextColor = Color3.fromRGB(245, 255, 245),
