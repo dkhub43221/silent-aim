@@ -1,5 +1,4 @@
-local executor = identifyexecutor and identifyexecutor() or "Unknown"
-local rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/dkhub43221/clone/refs/heads/main/sirus"))()
+local Rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/dkhub43221/clone/refs/heads/main/sirus"))()
 
 local customTheme = {
     TextColor = Color3.fromRGB(245, 255, 245),
@@ -8,6 +7,7 @@ local customTheme = {
     Shadow = Color3.fromRGB(0, 0, 0),
 
     NotificationBackground = Color3.fromRGB(17, 16, 20),
+    NotificationTextColor = Color3.fromRGB(245, 255, 245),
     NotificationActionsBackground = Color3.fromRGB(15, 55, 25),
 
     TabBackground = Color3.fromRGB(10, 14, 11),
@@ -42,8 +42,9 @@ local customTheme = {
     InputStroke = Color3.fromRGB(77, 251, 16),
 }
 
-local Window = rayfield:CreateWindow({
-    Name = "Tester UWU | ".. executor,
+local Window = Rayfield:CreateWindow({
+    Name = "《 🍀 DK's HUB 》 | Street Warz 2 | V1.3 | ",
+    ScriptID = "sid_28nk80xky15u",
     ShowText = "DK's HUB",
     Icon = 0,
     Theme = customTheme,
@@ -52,77 +53,56 @@ local Window = rayfield:CreateWindow({
     ConfigurationSaving = {
         Enabled = true,
         FolderName = "Dks Hub",
-        FileName = "Config" -- FIXED: can't be empty
+        FileName = ""
     },
     Discord = {
         Enabled = true,
         Invite = "discord.gg/xdkhub",
         RememberJoins = true
     },
-    KeySystem = false, -- you had KeySettings but KeySystem = false, Rayfield ignores it anyway
+    KeySystem = false,
+    KeySettings = {
+        Title = "",
+        Subtitle = "Authentication Required",
+        Note = "Get your key at: discord.gg/dkshub",
+        FileName = "SHITTY KEY SYSTEM",
+        SaveKey = false,
+        GrabKeyFromSite = false,
+        Key = {"NIGGERS"},
+        Theme = customTheme
+    }
 })
 
 local MainTab = Window:CreateTab("Main", "box")
 MainTab:CreateSection("User Info")
 
-local Dropdown = MainTab:CreateDropdown({
-   Name = "Test",
-   Options = {"Option 1", "Option 2"},
-   CurrentOption = {"Option 1"},
-   MultipleOptions = false,
-   Flag = "Dropdown1",
-   Callback = function(Options)
-       print(Options[1])
-   end,
+MainTab:CreateLabeledDivider("FOV SETTINGS")
+
+-- CREATE THE GROUPBOX FIRST
+local AimbotBox = MainTab:CreateGroupbox({Name = "Aimbot"})
+
+local myToggle = AimbotBox:CreateToggle({
+    Name = "ESP",
+    CurrentValue = false,
+    Flag = "ESP_Toggle",
+    Callback = function(Value)
+        print("ESP:", Value)
+    end,
+    Colorpicker = {
+        Default = Color3.fromRGB(0, 255, 0),
+        Flag = "ESP_Color",
+        Callback = function(Color)
+            print("ESP Color:", Color)
+        end
+    }
 })
 
--- FIXED: Added CreateLabeledDivider since Rayfield doesn't have it
-function MainTab:CreateLabeledDivider(text)
-	local TabPage = self.TabPage
-	local Elements = TabPage.Parent
-	local Divider = Elements.Template.Divider:Clone()
-	Divider.Name = "LabeledDivider"
-	Divider.Visible = true
-	Divider.Parent = TabPage
-	Divider.BackgroundTransparency = 1
-	Divider.Size = UDim2.new(1, -10, 0, 20)
-
-	Divider.Divider:Destroy()
-
-	local LeftLine = Instance.new("Frame")
-	LeftLine.Name = "LeftLine"
-	LeftLine.AnchorPoint = Vector2.new(0, 0.5)
-	LeftLine.Position = UDim2.new(0, 0, 0.5, 0)
-	LeftLine.Size = UDim2.new(0.5, -(#text * 3.5) - 10, 0, 1)
-	LeftLine.BackgroundColor3 = customTheme.ElementStroke
-	LeftLine.BackgroundTransparency = 0.85
-	LeftLine.BorderSizePixel = 0
-	LeftLine.Parent = Divider
-
-	local Label = Instance.new("TextLabel")
-	Label.Name = "Title"
-	Label.AnchorPoint = Vector2.new(0.5, 0.5)
-	Label.Position = UDim2.new(0.5, 0, 0.5, 0)
-	Label.Size = UDim2.new(0, #text * 7, 0, 14)
-	Label.BackgroundTransparency = 1
-	Label.Text = text
-	Label.TextColor3 = customTheme.TextColor
-	Label.TextTransparency = 0.4
-	Label.Font = Enum.Font.Gotham
-	Label.TextSize = 12
-	Label.Parent = Divider
-
-	local RightLine = Instance.new("Frame")
-	RightLine.Name = "RightLine"
-	RightLine.AnchorPoint = Vector2.new(1, 0.5)
-	RightLine.Position = UDim2.new(1, 0, 0.5, 0)
-	RightLine.Size = UDim2.new(0.5, -(#text * 3.5) - 10, 0, 1)
-	RightLine.BackgroundColor3 = customTheme.ElementStroke
-	RightLine.BackgroundTransparency = 0.85
-	RightLine.BorderSizePixel = 0
-	RightLine.Parent = Divider
-
-	return Divider
-end
-
-MainTab:CreateLabeledDivider("FOV SETTINGS")
+AimbotBox:CreateSlider({
+    Name = "FOV Size",
+    Range = {0, 360},
+    CurrentValue = 90,
+    Flag = "FOV_Size",
+    Callback = function(Value)
+        print("FOV:", Value)
+    end
+})
