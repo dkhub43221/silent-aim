@@ -1,4 +1,5 @@
-local Rayfield =  loadstring(game:HttpGet("https://raw.githubusercontent.com/dkhub43221/clone/refs/heads/main/sirus"))()
+local executor = identifyexecutor and identifyexecutor() or "Unknown"
+local rayfield = loadstring(game:HttpGet("https://raw.githubusercontent.com/dkhub43221/clone/refs/heads/main/sirus"))()
 
 local customTheme = {
     TextColor = Color3.fromRGB(245, 255, 245),
@@ -7,7 +8,6 @@ local customTheme = {
     Shadow = Color3.fromRGB(0, 0, 0),
 
     NotificationBackground = Color3.fromRGB(17, 16, 20),
-    NotificationTextColor = Color3.fromRGB(245, 255, 245),
     NotificationActionsBackground = Color3.fromRGB(15, 55, 25),
 
     TabBackground = Color3.fromRGB(10, 14, 11),
@@ -42,11 +42,8 @@ local customTheme = {
     InputStroke = Color3.fromRGB(77, 251, 16),
 }
 
-
-
-
-local Window = Rayfield:CreateWindow({
-    Name = "Tester UWU | " .. executor,
+local Window = rayfield:CreateWindow({
+    Name = "Tester UWU | ".. executor,
     ShowText = "DK's HUB",
     Icon = 0,
     Theme = customTheme,
@@ -55,37 +52,77 @@ local Window = Rayfield:CreateWindow({
     ConfigurationSaving = {
         Enabled = true,
         FolderName = "Dks Hub",
-        FileName = ""
+        FileName = "Config" -- FIXED: can't be empty
     },
     Discord = {
         Enabled = true,
         Invite = "discord.gg/xdkhub",
         RememberJoins = true
     },
-    KeySystem = false,
-    KeySettings = {
-        Title = "",
-        Subtitle = "Authentication Required",
-        Note = "Get your key at: discord.gg/dkshub",
-        FileName = "SHITTY KEY SYSTEM",
-        SaveKey = false,
-        GrabKeyFromSite = false,
-        Key = {"NIGGERS"},
-        Theme = customTheme
-    }
+    KeySystem = false, -- you had KeySettings but KeySystem = false, Rayfield ignores it anyway
 })
 
 local MainTab = Window:CreateTab("Main", "box")
 MainTab:CreateSection("User Info")
 
 local Dropdown = MainTab:CreateDropdown({
-   Name = "Test,Lua NGL IDK IF THIS FIXED CL",
+   Name = "Test",
    Options = {"Option 1", "Option 2"},
    CurrentOption = {"Option 1"},
    MultipleOptions = false,
-   Flag = "Dropdown1", -- A flag is the identifier for the configuration file; make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Flag = "Dropdown1",
    Callback = function(Options)
-   -- The function that takes place when the selected option is changed
-   -- The variable (Options) is a table of strings for the current selected options
+       print(Options[1])
    end,
 })
+
+-- FIXED: Added CreateLabeledDivider since Rayfield doesn't have it
+function MainTab:CreateLabeledDivider(text)
+	local TabPage = self.TabPage
+	local Elements = TabPage.Parent
+	local Divider = Elements.Template.Divider:Clone()
+	Divider.Name = "LabeledDivider"
+	Divider.Visible = true
+	Divider.Parent = TabPage
+	Divider.BackgroundTransparency = 1
+	Divider.Size = UDim2.new(1, -10, 0, 20)
+
+	Divider.Divider:Destroy()
+
+	local LeftLine = Instance.new("Frame")
+	LeftLine.Name = "LeftLine"
+	LeftLine.AnchorPoint = Vector2.new(0, 0.5)
+	LeftLine.Position = UDim2.new(0, 0, 0.5, 0)
+	LeftLine.Size = UDim2.new(0.5, -(#text * 3.5) - 10, 0, 1)
+	LeftLine.BackgroundColor3 = customTheme.ElementStroke
+	LeftLine.BackgroundTransparency = 0.85
+	LeftLine.BorderSizePixel = 0
+	LeftLine.Parent = Divider
+
+	local Label = Instance.new("TextLabel")
+	Label.Name = "Title"
+	Label.AnchorPoint = Vector2.new(0.5, 0.5)
+	Label.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Label.Size = UDim2.new(0, #text * 7, 0, 14)
+	Label.BackgroundTransparency = 1
+	Label.Text = text
+	Label.TextColor3 = customTheme.TextColor
+	Label.TextTransparency = 0.4
+	Label.Font = Enum.Font.Gotham
+	Label.TextSize = 12
+	Label.Parent = Divider
+
+	local RightLine = Instance.new("Frame")
+	RightLine.Name = "RightLine"
+	RightLine.AnchorPoint = Vector2.new(1, 0.5)
+	RightLine.Position = UDim2.new(1, 0, 0.5, 0)
+	RightLine.Size = UDim2.new(0.5, -(#text * 3.5) - 10, 0, 1)
+	RightLine.BackgroundColor3 = customTheme.ElementStroke
+	RightLine.BackgroundTransparency = 0.85
+	RightLine.BorderSizePixel = 0
+	RightLine.Parent = Divider
+
+	return Divider
+end
+
+MainTab:CreateLabeledDivider("FOV SETTINGS")
